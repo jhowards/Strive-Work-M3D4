@@ -55,7 +55,8 @@
                         <div class="card-body">
                           <h5 class="card-title">${book.title}</h5>
                           <p class="card-text"> ${book.price}</p>
-                          <button onclick="addToCart(this.parentNode)" class="btn btn-primary mt-2">Add to cart</button>
+                          <button onclick="addToCart(this.parentNode, ${book.price})" class="btn btn-primary mt-2">Add to cart</button>
+                          <button onclick="skipBtn(this.parentNode)" class="btn btn-primary mt-2">Skip</button>
                           </div>
                           </card>
                           </div>
@@ -64,50 +65,29 @@
                 ).join("")
 
                 console.log(books);
-                // for (let i = 0; i < 8; i++) {
-                // let col = document.createElement("div")
-                // col.classList.add("col")
-                // let card = document.createElement("card")
-                // card.classList.add("card")
-                // card.classList.add("text-center")
-                // col.appendChild(card)
-                // let image = document.createElement("img")
-                // image.classList.add("card-img-top")
-                // image.src = books[i].img
-                // card.appendChild(image)
-                // let body = document.createElement("div")
-                // body.classList.add("card-body")
-                // card.appendChild(body)
-                // let title = document.createElement("h5")
-                // title.classList.add("card-title")
-                // title.innerText = books[i].title
-                // body.appendChild(title)
-                // let cartButton = document.createElement("button")
-                // cartButton.classList.add("btn")
-                // cartButton.classList.add("btn-primary")
-                // cartButton.classList.add("mt-2")
-                // cartButton.innerText = "Add to cart"
-                // body.appendChild(cartButton)
-                // getCards.appendChild(col)
-                // }
+    
               })
               .catch((error) => {
                 console.log(error)
               });
           };
 
-          const addToCart = (card) => {
-            console.log(card)
+          const addToCart = (card, price) => {
             
             card.classList.toggle("bg-success")
             basket = document.getElementById("basket")
-            basket.insertAdjacentHTML('afterend', `<a href="#" class="list-group-item list-group-item-action active py-3 lh-tight mb-1" aria-current="true">
+            basket.insertAdjacentHTML('afterend', `<a href="#" class="list-group-item list-group-item-action active py-3 lh-tight mb-1 " aria-current="true">
                 <div class="d-flex w-100 align-items-center justify-content-between">
                   <strong class="mb-1">Book Name</strong>
                   <small></small>
                 </div>
-                <div class="col-10 mb-1 small">Book Price</div>
+                <div class="col-10 mb-1 small">${price}</div>
               </a>`)
+          }
+
+          const skipBtn = (card) => {
+            card.parentNode.parentNode.remove()
+            
           }
 
           
@@ -125,8 +105,12 @@
       <div class="row">
         <div class="col-sm-2">
           <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 100%;">
+            <form class="d-flex mb-2">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
             <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-basket " viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" fill="currentColor" class="bi bi-basket me-2" viewBox="0 0 16 16">
                 <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
               </svg>
               <span class="h3 fw-semibold">Basket</span>
